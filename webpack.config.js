@@ -6,11 +6,11 @@ module.exports = {
   entry: './src/main/index.tsx',
   output: {
     path: path.join(__dirname, 'public/js'),
-    publicPath: '/public/js',
+    publicPath: '/js',
     filename: 'bundle.js'
   },
   resolve: {
-    extesions: ['.ts', '.tsx', '.js', 'scss'],
+    extensions: ['.ts', '.tsx', '.js', 'scss'],
     alias: {
       '@': path.join(__dirname, 'src')
     }
@@ -23,15 +23,16 @@ module.exports = {
     }, {
       test: /\.scss$/,
       use: [
-        { loader: 'style-loader' },
-        { loader: 'sass-loader' },
-        { loader: 'css-loader', options: { modules: true } }
+        'style-loader',
+        { loader: 'css-loader', options: { modules: true } },
+        'sass-loader'
       ]
     }]
   },
   devServer: {
-    contentBase: './public',
-    writeToDisk: true,
+    static: {
+      directory: './public'
+    },
     historyApiFallback: true
   },
   externals: {
